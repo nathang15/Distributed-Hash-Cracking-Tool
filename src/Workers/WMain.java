@@ -21,24 +21,29 @@ public class WMain {
     }
     public static ServerInterface serverRmi;
 
-    // port ranges between 2000 and 3000
-    // TODO generate port in range between 2000 and 3000 for worker to use
     /**
-     * Hint: use while(true) loop and isPortAvailable methhod
-     * @return
+     * Generate port between 2000 and 3000
+     * @return available port between the range
      */
-    private static int generatePort() {
-        return 0;
+    private static int generatePort() throws IOException {
+        for (int port = 2000; port <= 3000; port++) {
+            if (isPortAvailable(port)) {
+                return port;
+            }
+        }
+        throw new IOException("No available port in the specified range.");
     }
 
-    // TODO check if the input port is available or not
     /**
-     * Use try catch block
+     * Check if the given port is available
      * @param port input port
      * @return true if input port is available, false otherwise
      */
     private static boolean isPortAvailable(int port){
-        new ServerSocket(port).close();
-        return false;
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

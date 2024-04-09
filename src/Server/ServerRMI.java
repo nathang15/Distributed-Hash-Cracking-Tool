@@ -21,12 +21,15 @@ public class ServerRMI extends UnicastRemoteObject implements ServerInterface {
     // wr stands for WORKERS RECORD
     @Override
     public void completed(String pass) throws RemoteException {
-        // TODO: implement completed method. Hint: look at the stop() method below
-        /*
-         * The purpose of this method is stop all running workers
-         * by iterating through worker records.
-         * and notify the clientRmi that the password is found
-         */
+        for (WorkerInterface worker : SMain.wr.workers) {
+            try {
+                worker.stop();
+            } catch (RemoteException e) {
+                Logger.getLogger(ServerRMI.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        System.out.println("Password is: " + pass);
+        SMain.clientRmi.completed(pass);
     }
     @Override
     public void assign(int port) {

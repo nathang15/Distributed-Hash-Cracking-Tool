@@ -15,7 +15,6 @@ public class WorkerRMI extends UnicastRemoteObject implements WorkerInterface {
         super();
     }
 
-    //TODO: assign brutefoce job and start the bruteforce
     /**
      * Assign brute force job for worker
      * @param start
@@ -28,6 +27,8 @@ public class WorkerRMI extends UnicastRemoteObject implements WorkerInterface {
     @Override
     public void assignJob(long start, long end, String hash, String ch, String algo) throws RemoteException {
         try {
+            bruteForce = new BruteForce(start, end, hash, ch, algo);
+            bruteForce.start();
 
         } catch (NoSuchAlgorithmException e) {
             Logger.getLogger(WorkerRMI.class.getName()).log(Level.SEVERE, null, e);
@@ -35,7 +36,6 @@ public class WorkerRMI extends UnicastRemoteObject implements WorkerInterface {
     }
 
     @Override
-    // stop the brute force
     public void stop() throws RemoteException {
         bruteForce.terminate();
     }
