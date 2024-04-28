@@ -3,7 +3,7 @@
 
 This project proposes a distributed system architecture to efficiently crack SHA-256 hashes using a multi-threaded CPU approach. The system aims to mitigate the time-consuming process of password recovery by leveraging a server-client-worker model over TCP connection.
 The client initiates requests to the server for password hashes to be cracked. Upon receiving a request, the server orchestrates the distribution of tasks among multiple workers. Each worker operates concurrently, employing non-overlapping brute force techniques to crack passwords.
-The communication is done with Java RMI and aim to migrate to gRPC in the future. By harnessing the power of distributed computing, the system optimizes hash cracking performance, enhancing its scalability and efficiency in handling large databases with complex and lengthy passwords.
+The communication is done with Java RMI and aim to migrate to gRPC in the future.
 
 ### Built With Java and Java RMI
 
